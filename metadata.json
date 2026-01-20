@@ -1,0 +1,8 @@
+{
+  "name": "Bafut Village & Culture Intelligence AI",
+  "description": "A Digital Village Operating System for Bafut preserving heritage and driving development.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
