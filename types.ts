@@ -1,145 +1,117 @@
-export type ViewState = 
-  | 'HOME' 
-  | 'ABOUT' 
-  | 'NEWS' 
-  | 'LANGUAGE' 
-  | 'CULTURE' 
-  | 'NJANGI' 
-  | 'DONATIONS' 
-  | 'MARKETPLACE' 
-  | 'CROP_DOCTOR' 
-  | 'HEALTH' 
-  | 'PROJECTS' 
-  | 'YOUTH' 
-  | 'WOMEN' 
-  | 'MEDIA' 
-  | 'ACTIVITIES' 
-  | 'DIASPORA' 
-  | 'EMERGENCY' 
-  | 'CONTACT'
-  | 'SERVICES'; // Monetization Hub
-
-export interface NjangiGroup {
-  id: string;
-  name: string;
-  contributionAmount: number;
-  frequency: string;
-  memberCount: number;
-  nextMeeting: string;
-  totalPool: number;
-  unicsAccountNumber: string; // Linked Unics Bank Account
+export enum UserRole {
+  CLIENT = 'CLIENT',
+  PROFESSIONAL = 'PROFESSIONAL',
+  ADMIN = 'ADMIN'
 }
 
-export interface NjangiMember {
+export interface User {
   id: string;
   name: string;
-  quarter: string;
-  contributions: number;
-  trustScore: number;
-  image: string;
+  email: string;
+  role: UserRole;
+  avatarUrl?: string;
+  isAnonymous?: boolean;
 }
 
-export interface Product {
+export interface FamilyMember {
   id: string;
   name: string;
+  relation: string;
+  avatarUrl?: string;
+}
+
+export interface ServicePackage {
+  id: string;
+  name: string;
+  description: string;
   price: number;
-  seller: string;
-  category: 'Farm' | 'Crafts' | 'Livestock' | 'Food' | 'Cultural';
-  image: string;
+  durationMinutes: number;
+}
+
+export interface Professional extends User {
+  title: string;
+  companyName?: string;
+  bio?: string;
+  specialty: string[];
+  hourlyRate: number;
+  packages: ServicePackage[];
   rating: number;
-  isCoop: boolean;
-  trustBadge: 'New' | 'Verified' | 'Top Seller';
-  isBoosted?: boolean; // Monetization feature
+  isOnline: boolean;
+  languages: string[];
+  verified: boolean;
 }
 
-export interface Project {
+export interface SessionNote {
   id: string;
-  name: string;
-  budget: number;
-  raised: number;
-  status: 'Planning' | 'In Progress' | 'Completed';
-  image: string;
-  description: string;
-  unicsAccountNumber: string; // Linked Unics Bank Account for Donations
-}
-
-export interface Hospital {
-  id: string;
-  name: string;
-  location: string;
-  services: string[];
-  phone: string;
-  type: 'Public' | 'Private' | 'Mission';
-  unicsAccountNumber?: string;
-}
-
-export interface NewsItem {
-  id: string;
-  title: string;
-  date: string;
-  category: string;
-  image: string;
+  professionalName: string;
+  date: Date;
   summary: string;
+  keyTakeaways: string[];
 }
 
-export interface Activity {
-  id: string;
-  title: string;
+export interface WellnessEntry {
   date: string;
-  location: string;
-  type: 'Village' | 'National' | 'International';
-  organizer: string;
+  mood: 'Happy' | 'Neutral' | 'Sad' | 'Anxious' | 'Angry';
+  sleepHours: number;
 }
 
-export interface DiasporaGroup {
-  id: string;
-  country: string;
-  region: string;
-  chapterName: string;
-  president: string;
-  members: number;
-  upcomingEvent: string;
-  njangiPool: number;
-  projectContribution: number;
-  unicsAccountNumber: string; // Linked Unics Bank Account
-}
-
-export interface DiasporaMember {
+export interface Medication {
   id: string;
   name: string;
-  role: string;
-  joined: string;
-  image: string;
+  dosage: string;
+  time: string;
+  taken: boolean;
 }
 
-export interface CulturalItem {
+export interface Appointment {
   id: string;
-  title: string;
-  description: string;
-  image?: string;
-  type: 'Festival' | 'Attire' | 'Artifact' | 'Proverb';
-}
-
-export interface Course {
-  id: string;
-  title: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced';
-  duration: string;
-  enrolled: number;
-  image: string;
-  description: string;
-  modules: number;
-  price: number; // Monetization
+  professionalName: string;
+  professionalAvatar: string;
+  date: Date;
+  type: 'Video' | 'In-Person';
+  status: 'Upcoming' | 'Completed' | 'Cancelled';
 }
 
 export interface Transaction {
   id: string;
-  type: 'DEPOSIT' | 'WITHDRAWAL' | 'CONTRIBUTION' | 'LOAN_DISBURSEMENT' | 'LOAN_REPAYMENT' | 'SAVINGS_INTEREST' | 'DONATION' | 'TRANSFER' | 'SERVICE_FEE';
+  date: Date;
   amount: number;
-  date: string;
+  type: 'Credit' | 'Debit';
   description: string;
-  status: 'COMPLETED' | 'PENDING' | 'FAILED';
-  reference: string;
-  unicsReference?: string; // Internal Unics transaction ID
-  fee?: number;
+  status: 'Completed' | 'Pending' | 'Failed';
+  method?: string;
+}
+
+export interface MedicalReport {
+  id: string;
+  name: string;
+  date: Date;
+  size: string;
+  type: string;
+  status: 'Uploaded' | 'Reviewed';
+}
+
+export enum MessageSender {
+  USER = 'user',
+  MODEL = 'model',
+  SYSTEM = 'system'
+}
+
+export interface ChatMessage {
+  id: string;
+  text: string;
+  sender: MessageSender;
+  timestamp: Date;
+  isError?: boolean;
+}
+
+export interface LiveConnectionState {
+  isConnected: boolean;
+  isTalking: boolean;
+  volume: number;
+}
+
+export interface AnalyticsData {
+  name: string;
+  value: number;
 }

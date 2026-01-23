@@ -1,8 +1,8 @@
 {
-  "name": "Bafut Village & Culture Intelligence AI",
-  "description": "A Digital Village Operating System for Bafut preserving heritage and driving development.",
+  "name": "LESLEYCARE™ Intelligence Platform",
+  "description": "A global, privacy-first mental health and medical consultation platform powered by AI.",
   "requestFramePermissions": [
-    "camera",
-    "microphone"
+    "microphone",
+    "camera"
   ]
 }
